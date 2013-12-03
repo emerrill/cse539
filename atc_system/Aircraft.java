@@ -26,6 +26,7 @@ class Aircraft extends Observable {
 
     private ArrayList<Integer> locationHistory;
     private ArrayList<Integer> clearanceHistory;
+    private ArrayList<String> history;
 
     private int moveDelay = 0;
 
@@ -41,6 +42,9 @@ class Aircraft extends Observable {
         this.locationHistory = new ArrayList<Integer>();
         this.locationHistory.add(l);
         this.clearanceHistory = new ArrayList<Integer>();
+        this.history = new ArrayList<String>();
+
+        this.history.add("Created at loction "+l);
 
         this.id = i;
         this.location = l;
@@ -79,6 +83,7 @@ class Aircraft extends Observable {
         if (changed) {
             this.locationHistory.add(l);
             this.notifyObservers("clearaircraft");
+            this.history.add("Location updated to "+l);
         } else {
             this.notifyObservers();
         }
@@ -130,6 +135,8 @@ class Aircraft extends Observable {
         this.clearance = c;
         this.availableClearance = this.CLEARANCE_NONE;
 
+        this.history.add("Clearance set to "+c);
+
         if (this.location != this.clearance) {
             this.moveDelay = (int)(Math.random() * 10);
         }
@@ -160,7 +167,10 @@ class Aircraft extends Observable {
      * Get the history report of the aircraft
      */
     public void getHistory() {
-        System.out.println("Aircraft History");
-        // TODO
+        System.out.println("---------------------");
+        System.out.println("Aircraft History for "+this.getId());
+        for (int i = 0; i < this.history.size(); i++) {
+            System.out.println(this.history.get(i));
+        }
     }
 }
