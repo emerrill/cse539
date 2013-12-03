@@ -26,7 +26,7 @@ public class SimWindow implements ActionListener {
         this.frame = new JFrame();
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setTitle("Simulator");
-        this.frame.setSize(500,40);
+        this.frame.setSize(500,60);
 
         Container pane = this.frame.getContentPane();
         pane.setLayout(new GridLayout(1,0));

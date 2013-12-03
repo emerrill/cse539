@@ -29,7 +29,7 @@ class Airspace extends Observable {
     public void updateAircraft(Integer id, int location) {
         // Check if we already know about this aircraft
         if (!airspace.containsKey(id)) {
-            Aircraft aircraft = new Aircraft(id, location);
+            Aircraft aircraft = new Aircraft(this, id, location);
             aircraft.addObserver(this.devObs);
             this.addAircraft(aircraft);
             aircraft.notifyObservers();
@@ -118,10 +118,31 @@ class Airspace extends Observable {
                 list.add(aircraft);
             }
         }
-        
+
         Aircraft output[] = new Aircraft[list.size()];
         output = list.toArray(output);
 
         return output;
+    }
+
+    /**
+     * Check all open clearances to see if they are still valid.
+     * Clear it if not.
+     */
+    public void checkAvailableClearances() {
+        Enumeration<Aircraft> aircraftEnum = this.airspace.elements();
+
+        while (aircraftEnum.hasMoreElements()) {
+            Aircraft aircraft = aircraftEnum.nextElement();
+
+            int aClear = aircraft.getAvailableClearance();
+            int newAClear = this.getNextSlot(aircraft.getLocation());
+
+            // If the new available clearance is higher that the
+            // current one, the current is invalid
+            if (newAClear > aClear) {
+                aircraft.setAvailableClearance(Aircraft.CLEARANCE_NONE);
+            }
+        }
     }
 }

@@ -6,14 +6,9 @@ import java.lang.Math;
  * A simulated aircraft
  */
 class SimAircraft {
-    public static final int LOCATION_REGION = 2000;
-    public static final int LOCATION_GATEWAY = 1999;
-    public static final int LOCATION_GLIDESLOPE = 0;
-    public static final int LOCATION_LANDED = -1;
-
     private int id = 0;
-    private int location = SimAircraft.LOCATION_REGION;
-    private int clearance = SimAircraft.LOCATION_REGION;
+    private int location = Aircraft.LOCATION_REGION;
+    private int clearance = Aircraft.LOCATION_REGION;
 
     private int moveDelay = 0;
 

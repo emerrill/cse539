@@ -15,6 +15,7 @@ class Aircraft extends Observable {
     public static final int CLEARANCE_NONE = -2;
 
     // Data we store about the aircraft
+    private Airspace airspace;
     private int id = 0;
     private int location = this.LOCATION_REGION;
     private int clearance = this.LOCATION_GATEWAY;
@@ -31,10 +32,12 @@ class Aircraft extends Observable {
     /**
      * Aircraft constructor
      *
-     * @param   i   The aircraft id
-     * @param   l   The current location of the aircraft
+     * @param   air     The airspace object
+     * @param   i       The aircraft id
+     * @param   l       The current location of the aircraft
      */
-    public Aircraft(int i, int l) {
+    public Aircraft(Airspace air, int i, int l) {
+        this.airspace = air;
         this.locationHistory = new ArrayList<Integer>();
         this.locationHistory.add(l);
         this.clearanceHistory = new ArrayList<Integer>();

@@ -290,7 +290,7 @@ public class ATCWindow implements Observer {
                 this.idBox.setText("" + this.aircraft.getId());
                 this.requestButton.setActionCommand("request:"+this.aircraft.getId());
                 this.requestButton.setVisible(true);
-                this.clearance.setText(""+this.aircraft.getClearance());
+                this.clearance.setText(this.locationAsString(this.aircraft.getClearance()));
                 this.report.setActionCommand("report:"+this.aircraft.getId());
                 this.report.setVisible(true);
 
@@ -300,7 +300,7 @@ public class ATCWindow implements Observer {
                     this.approveButton.setVisible(false);
                     this.approveButton.setActionCommand("");
                 } else {
-                    this.availClearance.setText("" + aClear);
+                    this.availClearance.setText(locationAsString(aClear));
                     this.approveButton.setVisible(true);
                     this.approveButton.setActionCommand("approve:" + this.aircraft.getId() + ":" + aClear);
                 }
@@ -312,6 +312,23 @@ public class ATCWindow implements Observer {
                 this.clearance.setText("");
                 this.report.setActionCommand("");
                 this.report.setVisible(false);
+            }
+        }
+
+        /**
+         * Return the location as a string
+         *
+         * @param   loc     The location
+         */
+        private String locationAsString(int loc) {
+            if (loc == Aircraft.LOCATION_GATEWAY) {
+                return "Gateway";
+            } else if (loc == Aircraft.LOCATION_GLIDESLOPE) {
+                return "Glide";
+            } else if (loc == Aircraft.LOCATION_REGION) {
+                return "Region";
+            } else {
+                return ""+loc;
             }
         }
 
