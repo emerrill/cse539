@@ -5,13 +5,16 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
+/**
+ * Observer that monitors for aircraft deviations
+ */
 public class DeviationObserver implements Observer {
-
-
-    public DeviationObserver() {
-        
-    }
-
+    /**
+     * Observer update routine
+     *
+     * @param   o       Observable Object
+     * @param   arg     Supplied argument
+     */
     public void update(Observable o, Object arg) {
         if (o instanceof Aircraft) {
             Aircraft aircraft = (Aircraft) o;

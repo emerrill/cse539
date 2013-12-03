@@ -5,6 +5,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
+/**
+ * The main interface window
+ */
 public class ATCWindow implements Observer {
     private static final int STACK_LIMIT = 20;
     private static final int REGION_LIMIT = 8;
@@ -15,13 +18,18 @@ public class ATCWindow implements Observer {
 
     private TMAInterface tma;
 
-
     private JFrame frame;
 
+    /**
+     * The window constructor that builds the interface
+     *
+     * @param   inter   The TMAInterface object
+     */
     public ATCWindow(TMAInterface inter) {
         this.tma = inter;
         this.frame = new JFrame();
 
+        // Setup the main pane
         Container pane = this.frame.getContentPane();
         pane.setLayout(new GridBagLayout());
 
@@ -141,6 +149,12 @@ public class ATCWindow implements Observer {
         frame.setVisible(true);
     }
 
+    /**
+     * Observer update routine
+     *
+     * @param   o       Observable Object
+     * @param   arg     Supplied argument
+     */
     public void update(Observable o, Object arg) {
         if (o instanceof Airspace) {
             Airspace airspace = (Airspace) o;
@@ -149,11 +163,15 @@ public class ATCWindow implements Observer {
         }
     }
 
+    /**
+     * Set the entire system of aircraft
+     *
+     * @param   allAircraft     An array of all aircraft
+     */
     public void setAllAircraft(Aircraft[] allAircraft) {
-        //this.clearAll();
-
         int regionCount = 0;
 
+        // Go through all aircraft, and handle based on location
         for (int i = 0; i < allAircraft.length; i++) {
             int loc = allAircraft[i].getLocation();
 
@@ -173,12 +191,16 @@ public class ATCWindow implements Observer {
             }
         }
 
+        // Clean any open spots
         for (regionCount = regionCount; regionCount < this.REGION_LIMIT; regionCount++) {
             regionLabels[regionCount].setText("");
         }
 
     }
 
+    /**
+     * A subclass to handle each stack row
+     */
     class LayoutRow extends JFrame implements Observer {
         private Aircraft aircraft;
         private JLabel label;
@@ -191,6 +213,13 @@ public class ATCWindow implements Observer {
         private TMAInterface tma;
         private int location;
 
+        /**
+         * Observer update routine
+         *
+         * @param   l       The level descriptor
+         * @param   loc     The location of the row
+         * @param   inter   The TMAInterface
+         */
         public LayoutRow(String l, int loc, TMAInterface inter) {
             this.location = loc;
             this.tma = inter;
@@ -236,6 +265,11 @@ public class ATCWindow implements Observer {
             this.add(this.report);
         }
 
+        /**
+         * Set the aircraft in the row
+         *
+         * @param   a       The aircraft object|null to clear
+         */
         public void setAircraft(Aircraft a) {
             if (this.aircraft != null) {
                 this.aircraft.deleteObserver(this);
@@ -248,6 +282,9 @@ public class ATCWindow implements Observer {
             }
         }
 
+        /**
+         * Update all the objects for the row
+         */
         public void updateDrawing() {
             if (this.aircraft != null) {
                 this.idBox.setText("" + this.aircraft.getId());
@@ -278,6 +315,12 @@ public class ATCWindow implements Observer {
             }
         }
 
+        /**
+         * Observer update routine
+         *
+         * @param   o       Observable Object
+         * @param   arg     Supplied argument
+         */
         public void update(Observable o, Object a) {
             if (o instanceof Aircraft) {
                 this.updateDrawing();
@@ -288,5 +331,4 @@ public class ATCWindow implements Observer {
             }
         }
     }
-
 }

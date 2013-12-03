@@ -5,11 +5,19 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
+/**
+ * The simulator window interface
+ */
 public class SimWindow implements ActionListener {
     private JFrame frame;
     private Simulator simulator;
     private javax.swing.Timer timer;
 
+    /**
+     * The constructor that builds the window
+     *
+     * @param   s   The simulator object
+     */
     public SimWindow(Simulator s) {
         this.simulator = s;
         this.timer = new javax.swing.Timer(750, this);
@@ -49,9 +57,13 @@ public class SimWindow implements ActionListener {
         pane.add(button);
 
         frame.setVisible(true);
-
     }
 
+    /**
+     * The ActionListener actionPerformed receiver
+     *
+     * @param   e       ActionEvent
+     */
     public void actionPerformed(ActionEvent e) {
         if ("step".equals(e.getActionCommand())) {
             this.simulator.step();
@@ -67,10 +79,5 @@ public class SimWindow implements ActionListener {
         } else if ("pause".equals(e.getActionCommand())) {
             this.timer.stop();
         }
-
-        
-        
-
     }
-
 }

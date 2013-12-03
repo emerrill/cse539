@@ -2,7 +2,9 @@ package atc_system;
 
 import java.lang.Math;
 
-
+/**
+ * A simulated aircraft
+ */
 class SimAircraft {
     public static final int LOCATION_REGION = 2000;
     public static final int LOCATION_GATEWAY = 1999;
@@ -12,32 +14,45 @@ class SimAircraft {
     private int id = 0;
     private int location = SimAircraft.LOCATION_REGION;
     private int clearance = SimAircraft.LOCATION_REGION;
-    private int lastClearance = SimAircraft.LOCATION_REGION;
 
     private int moveDelay = 0;
 
+    /**
+     * Simulated aircraft constructor
+     *
+     * @param   u       Aircraft id
+     */
     public SimAircraft(int i) {
         this.id = i;
     }
 
+    /**
+     * Get the aircraft if
+     */
     public int getId() {
         return this.id;
     }
 
+    /**
+     * Get the aircraft location
+     */
     public int getLocation() {
         return this.location;
     }
 
+    /**
+     * Get the current clearance of the aircraft
+     */
     public int getClearance() {
         return this.clearance;
     }
 
-    public int getLastClearance() {
-        return this.lastClearance;
-    }
-
+    /**
+     * Set the aircraft clearance
+     *
+     * @param   c       Clearance
+     */
     public void setClearance(int c) {
-        this.lastClearance = this.clearance;
         this.clearance = c;
 
         if (this.location != this.clearance) {
@@ -45,19 +60,17 @@ class SimAircraft {
         }
     }
 
+    /**
+     * Step the location
+     */
     public int updateLocation() {
-        //double r = Math.random();
-
         if (this.location != this.clearance) {
             if (this.moveDelay == 0) {
-                //System.out.println(""+this.clearance);
                 this.location = this.clearance;
             } else {
                 this.moveDelay--;
             }
         }
-
         return this.location;
     }
-
 }

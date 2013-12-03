@@ -2,10 +2,16 @@ package atc_system;
 
 import java.io.*;
 
+/**
+ * The Starter class is used to setup the ATCSystem and the Simulator classes
+ */
 class Starter {
 
-
-
+    /**
+     * Main system function
+     *
+     * @param   args    Command line arguments (not used)
+     */
     public static void main(String [] args)
 	{
         Simulator sim = new Simulator();        
@@ -13,7 +19,7 @@ class Starter {
         
         sim.setATCSystem(atc);
         
-
+        // Some commands that can be used from the command line.
         InputStreamReader isr = new InputStreamReader ( System.in );
         BufferedReader br = new BufferedReader ( isr );
         String s = null;
@@ -39,4 +45,3 @@ class Starter {
         }
     }
 }
-

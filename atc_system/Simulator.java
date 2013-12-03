@@ -68,7 +68,6 @@ class Simulator {
 
     public void addAircraft() {
         SimAircraft newAircraft = generator.makeAircraft();
-        //System.out.println(newAircraft.getId());
         airspace.addAircraft(newAircraft);
     }
 
